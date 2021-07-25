@@ -3,8 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ru.firm.bigdata</groupId>
   <artifactId>big-data-101</artifactId>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>spark-core-homework</module>
+  </modules>
   <name>big-data-101</name>
   <url>http://maven.apache.org</url>
   <dependencies>

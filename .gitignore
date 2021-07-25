@@ -15,4 +15,6 @@
 # IntelliJ IDEA
 .idea/
 target/
+out/
+src/
 *.iml
