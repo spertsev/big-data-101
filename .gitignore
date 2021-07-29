@@ -17,3 +17,6 @@
 target/
 out/
 *.iml
+
+# Others
+*.MF

@@ -16,6 +16,7 @@
         <module>task-one</module>
         <module>task-two</module>
         <module>task-three</module>
+        <module>base-module</module>
     </modules>
 
     <properties>
