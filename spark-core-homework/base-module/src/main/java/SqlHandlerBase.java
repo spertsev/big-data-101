@@ -38,6 +38,7 @@ public class SqlHandlerBase {
         SparkSession sparkSession = SparkSession
                 .builder()
                 .appName("Java Spark SQL queries for train.csv")
+                .config("spark.master", "local[1]")
                 .getOrCreate();
         return sparkSession;
     }

@@ -17,6 +17,7 @@
 target/
 out/
 *.iml
+resources/
 
 # Others
 *.MF
