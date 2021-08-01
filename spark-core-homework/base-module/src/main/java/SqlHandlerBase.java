@@ -52,4 +52,15 @@ public class SqlHandlerBase {
         return trainDataset;
     }
 
+    public static void processCsvWithSqlQuery(String trainCsvPath, String sqlQueryText) throws InterruptedException {
+        StructType trainCsvSchema = prepareTrainCsvSchema();
+        SparkSession sparkSession = createSparkSession();
+        Dataset<Row> trainCsvDataset = makeDatasetByReadingCsv(trainCsvSchema, sparkSession, trainCsvPath);
+        String tableName = "train";
+        trainCsvDataset.createOrReplaceTempView(tableName);
+        Dataset<Row> trainCsvSqlDataset = sparkSession.sql(sqlQueryText);
+        trainCsvSqlDataset.show();
+        Thread.sleep(1 * 60 * 1000);
+    }
+
 }
