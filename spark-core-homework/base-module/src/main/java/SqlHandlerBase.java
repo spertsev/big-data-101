@@ -6,7 +6,7 @@ import org.apache.spark.sql.types.StructType;
 public class SqlHandlerBase {
 
     public static StructType prepareTrainCsvSchema() {
-        StructType trainSchema = new StructType()
+        return new StructType()
                 .add("date_time", "string")
                 .add("site_name", "int")
                 .add("posa_continent", "int")
@@ -31,36 +31,22 @@ public class SqlHandlerBase {
                 .add("hotel_country", "int")
                 .add("hotel_market", "int")
                 .add("hotel_cluster", "int");
-        return trainSchema;
     }
 
-    public static SparkSession createSparkSession() {
+    public static Dataset<Row> makeDatasetWithQueryingCsv(String trainCsvPath, String sqlQueryText) {
+        StructType trainCsvSchema = prepareTrainCsvSchema();
         SparkSession sparkSession = SparkSession
                 .builder()
                 .appName("Java Spark SQL queries for train.csv")
                 .config("spark.master", "local[1]")
                 .getOrCreate();
-        return sparkSession;
-    }
-
-    public static Dataset<Row> makeDatasetByReadingCsv(StructType schema, SparkSession sparkSession, String csvPath) {
-        Dataset<Row> trainDataset = sparkSession
+        Dataset<Row> trainCsvDataset = sparkSession
                 .read()
                 .option("mode", "DROPMALFORMED")
-                .schema(schema)
-                .csv(csvPath);
-        return trainDataset;
-    }
-
-    public static void processCsvWithSqlQuery(String trainCsvPath, String sqlQueryText) throws InterruptedException {
-        StructType trainCsvSchema = prepareTrainCsvSchema();
-        SparkSession sparkSession = createSparkSession();
-        Dataset<Row> trainCsvDataset = makeDatasetByReadingCsv(trainCsvSchema, sparkSession, trainCsvPath);
-        String tableName = "train";
-        trainCsvDataset.createOrReplaceTempView(tableName);
-        Dataset<Row> trainCsvSqlDataset = sparkSession.sql(sqlQueryText);
-        trainCsvSqlDataset.show();
-        Thread.sleep(1 * 60 * 1000);
+                .schema(trainCsvSchema)
+                .csv(trainCsvPath);
+        trainCsvDataset.createOrReplaceTempView("train");
+        return sparkSession.sql(sqlQueryText);
     }
 
 }

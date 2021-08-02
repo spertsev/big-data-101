@@ -1,9 +1,4 @@
-public class SqlHandlerOfCsvTaskOne extends SqlHandlerBase {
-
-    public static void processCsvWithFirstQuery(String trainCsvPath) throws InterruptedException {
-        String firstSqlQuery = prepareSqlQueryText();
-        processCsvWithSqlQuery(trainCsvPath, firstSqlQuery);
-    }
+public class SqlHandlerOfCsvTaskOne {
 
     public static String prepareSqlQueryText() {
         return "SELECT hotel_continent,\n" +
