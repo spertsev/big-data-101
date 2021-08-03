@@ -1,18 +1,12 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class SqlHandlerOfCsvTaskOneTest {
-
-    @Test
-    public void processCsvWithFirstQuery() {
-    }
 
     @Test
     public void prepareSqlQueryTextTestShouldReturnCorrectSqlQueryText() {
         String correctSqlQueryText =
-                        "SELECT hotel_continent,\n" +
+                "SELECT hotel_continent,\n" +
                         "       hotel_country,\n" +
                         "       hotel_market,\n" +
                         "       COUNT(*) AS number_of_rows\n" +
@@ -25,4 +19,5 @@ public class SqlHandlerOfCsvTaskOneTest {
                         "LIMIT 3";
         Assert.assertEquals(correctSqlQueryText, SqlHandlerOfCsvTaskOne.prepareSqlQueryText());
     }
+
 }

@@ -1,5 +1,15 @@
+/**
+ * This class is a part of the multi-modules project for querying the train.csv with Spark SQL. SqlHandlerOfCsvTaskThree
+ * contains the method used in the launching module as the second part for processing the csv file (methods of
+ * the base-module is the first part)
+ */
 public class SqlHandlerOfCsvTaskThree {
 
+    /**
+     * This method prepares an sql query for processing the csv.
+     *
+     * @return text of an sql query for processing the csv.
+     */
     public static String prepareSqlQueryText() {
         return "SELECT hotel_continent,\n" +
                 "       hotel_country,\n" +

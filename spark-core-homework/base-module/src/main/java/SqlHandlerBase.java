@@ -3,8 +3,18 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.types.StructType;
 
+/**
+ * This class is a part of the multi-modules project for querying the train.csv with Spark SQL. SqlHandlerBase contains
+ * methods used in the launching module as the first part for processing the csv file (methods of task 1-3 modules are
+ * the second part).
+ */
 public class SqlHandlerBase {
 
+    /**
+     * This method prepares the schema of the train.csv file.
+     *
+     * @return the schema of the train.csv
+     */
     public static StructType prepareTrainCsvSchema() {
         return new StructType()
                 .add("date_time", "string")
@@ -33,6 +43,13 @@ public class SqlHandlerBase {
                 .add("hotel_cluster", "int");
     }
 
+    /**
+     * This method opens a spark session, process the csv file with Spark sql query.
+     *
+     * @param trainCsvPath is a path to the csv file (can be a file system, HDFS, others supported by Spark).
+     * @param sqlQueryText is text of an sql query for processing the csv.
+     * @return a result dataset of processing the csv.
+     */
     public static Dataset<Row> makeDatasetWithQueryingCsv(String trainCsvPath, String sqlQueryText) {
         StructType trainCsvSchema = prepareTrainCsvSchema();
         SparkSession sparkSession = SparkSession
